@@ -24,6 +24,14 @@ serve(async(req) => {
       });
     }
 
+     // 入力チェック
+     if (
+      nextWord.length > 0 &&
+      previousWord.charAt(previousWord.length - 1) !== nextWord.charAt(0)
+    ) {
+      return new Response("前の単語に続いていません。", { status: 400 });
+    }
+
     //同じ文字チェック
     if(list.includes(nextWord)) {
       return new Response("一度入力した単語は使用できません",{status: 400});
@@ -38,14 +46,6 @@ serve(async(req) => {
 
     if(nextWord.length <= 1){
       return new Response("二文字以上入力してください。", {status: 400});
-    }
-
-    // 入力チェック
-    if (
-      nextWord.length > 0 &&
-      previousWord.charAt(previousWord.length - 1) !== nextWord.charAt(0)
-    ) {
-      return new Response("前の単語に続いていません。", { status: 400 });
     }
 
 
