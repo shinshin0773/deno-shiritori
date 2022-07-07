@@ -1,30 +1,8 @@
 import {serve} from "https://deno.land/std@0.138.0/http/server.ts"
 import { serveDir } from "https://deno.land/std@0.138.0/http/file_server.ts";
 
-//
-// const WordList = [
-//   "きょり",
-//   "かいきゅう",
-//   "ぎゃくすう",
-//   "すいちょくにとうぶんせん",
-//   "せいさんかくすい",
-//   "どすうぶんぷひょう",
-//   "ねじれのいち",
-//   "ちぇばのていり",
-//   "ふぇるまーのさいしゅうていり",
-//   "へくたーる",
-//   "ぴたごらすしき",
-//   "ぜったいふとうしき",
-//   "くらめるのこうしき",
-//   "ふーりえかいきゅう"
-// ];
-// let result = "";
-// result = WordList[Math.floor(Math.random() * WordList.length)];
-
-
-
 let previousWord = randomWord();
-const list = [];
+let list = [];
 
 console.log("Listening on http://localhost:8000");
 serve(async(req) => {
@@ -54,7 +32,12 @@ serve(async(req) => {
     //「ん」が出たらゲーム終了
     if (nextWord.charAt(nextWord.length - 1) == "ん") {
       previousWord = randomWord();
+      list = [];
       return new Response(previousWord);
+    }
+
+    if(nextWord.length <= 1){
+      return new Response("二文字以上入力してください。", {status: 400});
     }
 
     // 入力チェック
@@ -68,7 +51,7 @@ serve(async(req) => {
 
     list.push(nextWord);
     previousWord = nextWord;
-    return new Response(previousWord);
+    return new Response(previousWord,list);
   }
 
   return serveDir(req,{
@@ -84,7 +67,6 @@ function randomWord() {
   "きょり",
   "かいきゅう",
   "ぎゃくすう",
-  "すいちょくにとうぶんせん",
   "せいさんかくすい",
   "どすうぶんぷひょう",
   "ねじれのいち",

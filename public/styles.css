@@ -1,3 +1,52 @@
 body {
   background: skyblue;
+
+}
+
+.container {
+  text-align: center;
+  padding: 80px 50px;
+}
+
+.container h1 {
+  font-size: 100px;
+  color: blueviolet;
+}
+.previousWord-warp {
+  background-color: #8096F6;
+  width: 60%;
+  height: 150px;
+  margin: 0 auto;
+  padding: 30px 10px;
+  border-radius: 5px;
+  height: 50px;
+}
+
+.previousWord-warp p {
+  font-weight: bold;
+  color: white;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.input-wrap {
+  margin-top: 50px;
+}
+.input-wrap p {
+  font-weight: bold;
+  color: blueviolet;
+}
+
+#nextWordInput {
+
+  width: 35%;
+}
+
+#nextWordSendButton {
+  border-radius: 10%;
+  color: blue;
+  background-color: blue;
+  background: linear-gradient(130deg, #5EFCE8 30%, #736EFE);
+  background: -moz-linear-gradient(130deg, #5EFCE8 30%, #736EFE);
+  background: -webkit-linear-gradient(130deg, #5EFCE8 30%, #736EFE);
 }

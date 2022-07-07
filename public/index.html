@@ -5,11 +5,18 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>しりとり</h1>
-  <p id="previousWord"></p>
-  <input id="nextWordInput" type="text" />
-  <button id="nextWordSendButton">送信</button>
-
+  <div class="container">
+    <h1>しりとり</h1>
+    <div class="previousWord-warp">
+      <p id="previousWord"></p>
+      <p id="stockWord"></p>
+    </div>
+    <div class="input-wrap">
+      <p>↓前の単語に続く単語を入力してください</p>
+      <input id="nextWordInput" type="text" />
+      <button id="nextWordSendButton">送信</button>
+    </div>
+  </div>
 
 
   <script type="module">
@@ -22,20 +29,27 @@
     };
 
       document.querySelector("#nextWordSendButton").onclick = async (event) => {
+        location.reload();
         const nextWord = document.querySelector("#nextWordInput").value;
         const response = await fetch("/shiritori", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ nextWord })
         });
-        //前の単語に続いてなかったらエラー分表示
+        //前の単語に続いてなかったらエラー文表示
         if (response.status / 100 !== 2) {
           alert(await response.text());
           return;
         }
         const previousWord = await response.text();
 
+        //「ん」が終わったらゲームを終了する
+        if (nextWord.charAt(nextWord.length - 1) === "ん") {
+          alert(await "「ん」がついたのでゲーム終了です（ ｉ _ ｉ ）");
+        }
+
         const para = document.querySelector("#previousWord");
+        const stock = document.querySelector("#stockWord");
         para.innerText = `前の単語：${previousWord}`;
       }
   </script>
